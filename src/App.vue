@@ -45,6 +45,9 @@ export default {
         'getCategory' : 'category/getCategory',
     }),
   },
+  beforeMount(){
+    this.fetchCategories();
+  },
   methods : {
       ...mapActions({
           'fetchCategories' : 'category/fetchCategories'
