@@ -4,8 +4,15 @@
       <nav id="sidebar">
         <LoaderComponent :loading="loading" loaderText="Loading...">   </LoaderComponent>
         <template v-if="!loading">
-          <router-link  tag="div"  class="link"  to="/">Home</router-link> |
-          <router-link  tag="div"  class="link"   to="/about">About</router-link>
+          <!-- <router-link  tag="div"  class="link"  to="/">Home</router-link> |
+          <router-link  tag="div"  class="link"   to="/about">About</router-link> -->
+          <div v-for="(item, index) in categories"  :key="index">
+            <router-link  tag="div"  class="link"   :to="'/blog/'+ item.key"  :key="`menu_${index}`">
+               {{ item.name }} 
+            </router-link> 
+            <hr>
+          </div>
+           <!-- {{categories}} -->
         </template>
       </nav>
       <div id="content">
@@ -25,12 +32,14 @@ export default {
   },
   data () {
     return {
-      loading : false
+      loading : true
     }
   },
+
   mounted() {
     this.fetchCategories().then(() => {
       if(this.$route.params.key && !this.getCategory(this.$route.params.key)){
+        //console.log("*****************8"+this.$route.params.key);
         this.$router.push({ name : 'notfound'});
       }
       this.loading = false;       
@@ -42,11 +51,12 @@ export default {
   computed : {
     ...mapGetters({
         'categories' : 'category/getCategories',
-        'getCategory' : 'category/getCategory',
+        //'getCategory' : 'category/getCategory',
     }),
   },
   beforeMount(){
     this.fetchCategories();
+    
   },
   methods : {
       ...mapActions({
