@@ -12,7 +12,6 @@
             </router-link> 
             <hr>
           </div>
-           <!-- {{categories}} -->
         </template>
       </nav>
       <div id="content">
@@ -51,7 +50,7 @@ export default {
   computed : {
     ...mapGetters({
         'categories' : 'category/getCategories',
-        //'getCategory' : 'category/getCategory',
+        'getCategory' : 'category/getCategory',
     }),
   },
   beforeMount(){

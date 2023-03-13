@@ -67,7 +67,8 @@ export default {
     ...mapGetters({
        // 'categories' : 'category/getCategories',
         'getCategory' : 'category/getCategory',
-        'getPosts' : 'post/getPosts'
+        'getPosts' : 'post/getPosts',
+        'getPost' : 'post/getPost'
     }),
   },
   beforeMount(){
@@ -96,7 +97,9 @@ export default {
         if(this.category){
           this.loading = true;
           this.fetchPosts({cat: this.category.id}).then(() => {
-            console.log("id categoruyy "+this.category.id)
+            if(this.paramKeyPost && !this.getPost(this.paramKeyPost)){
+                this.$router.push({ name : 'notfound'});
+            }
             this.loading = false ;
           }).catch((error) => {
             console.log(error)
